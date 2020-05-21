@@ -8,8 +8,6 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 
 public class ServerThread extends Thread {
@@ -60,7 +58,7 @@ public class ServerThread extends Thread {
                     }
                     writer.println("Reset");
                 } else if (type.compareTo(Constants.POLL) == 0) {
-                    Log.v(Constants.TAG,"[SERVER THREAD] POLL");
+                    Log.v(Constants.TAG, "[SERVER THREAD] POLL");
                     Socket serviceSocket = new Socket(Constants.WEB_SERVICE_ADDRESS, Constants.PORT);
                     BufferedReader serviceReader = Utilities.getReader(serviceSocket);
                     String time = serviceReader.readLine();
@@ -68,22 +66,22 @@ public class ServerThread extends Thread {
                         time = serviceReader.readLine();
                     }
                     serviceSocket.close();
-                    Date date = new SimpleDateFormat("yy-MM-dd HH:mm:ss").parse(time.substring(5, 22));
+                    String date = time.substring(5, 22);
 
                     if (!map.containsKey(socket.getRemoteSocketAddress().toString().split(":")[0].substring(1))) {
                         writer.println("none");
-                        Log.v(Constants.TAG,"[SERVER THREAD] None");
+                        Log.v(Constants.TAG, "[SERVER THREAD] None");
                     } else {
                         String timee = map.get(socket.getRemoteSocketAddress().toString().split(":")[0].substring(1));
 
-                        if (date.getHours() > Integer.parseInt(timee.split(" ")[0]) || (date.getHours() == Integer.parseInt(timee.split(" ")[0])
-                                && date.getMinutes() > Integer.parseInt(timee.split(" ")[1]))) {
+                        if (date > Integer.parseInt(timee.split(" ")[0]) || (date == Integer.parseInt(timee.split(" ")[0])
+                                && date > Integer.parseInt(timee.split(" ")[1]))) {
                             writer.println("active");
-                            Log.v(Constants.TAG,"[SERVER THREAD] Activa");
+                            Log.v(Constants.TAG, "[SERVER THREAD] Activa");
 
                         } else {
                             writer.println("inactive");
-                            Log.v(Constants.TAG,"[SERVER THREAD] Inactiva");
+                            Log.v(Constants.TAG, "[SERVER THREAD] Inactiva");
 
                         }
                     }
