@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">PracticalTest02</string>
+    <string name="ora">ORE</string>
+    <string name="minute">MINUTE</string>
+    <string name="set">SET</string>
+    <string name="poll">POLL</string>
+    <string name="reset">RESET</string>
+</resources>
