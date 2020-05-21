@@ -60,7 +60,7 @@ public class ServerThread extends Thread {
                     }
                     writer.println("Reset");
                 } else if (type.compareTo(Constants.POLL) == 0) {
-
+                    Log.v(Constants.TAG,"[SERVER THREAD] POLL");
                     Socket serviceSocket = new Socket(Constants.WEB_SERVICE_ADDRESS, Constants.PORT);
                     BufferedReader serviceReader = Utilities.getReader(serviceSocket);
                     String time = serviceReader.readLine();
@@ -72,14 +72,19 @@ public class ServerThread extends Thread {
 
                     if (!map.containsKey(socket.getRemoteSocketAddress().toString().split(":")[0].substring(1))) {
                         writer.println("none");
+                        Log.v(Constants.TAG,"[SERVER THREAD] None");
                     } else {
                         String timee = map.get(socket.getRemoteSocketAddress().toString().split(":")[0].substring(1));
 
                         if (date.getHours() > Integer.parseInt(timee.split(" ")[0]) || (date.getHours() == Integer.parseInt(timee.split(" ")[0])
                                 && date.getMinutes() > Integer.parseInt(timee.split(" ")[1]))) {
                             writer.println("active");
+                            Log.v(Constants.TAG,"[SERVER THREAD] Activa");
+
                         } else {
                             writer.println("inactive");
+                            Log.v(Constants.TAG,"[SERVER THREAD] Inactiva");
+
                         }
                     }
 

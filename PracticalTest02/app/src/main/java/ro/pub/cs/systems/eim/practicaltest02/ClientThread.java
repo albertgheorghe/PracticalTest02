@@ -3,7 +3,7 @@ package ro.pub.cs.systems.eim.practicaltest02;
 import android.os.AsyncTask;
 import android.widget.TextView;
 
-public class ClientThread extends AsyncTask<Void, String, Void> {
+public class ClientThread {
     int port;
     String ore, minute, buttonType;
     TextView info;
